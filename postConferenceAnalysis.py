@@ -6,13 +6,6 @@ Created on Fri May 31 12:59:07 2019
 This script's goal is to clean up the survey data analysis, 
 to allow for more robust analysis
 """
-
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 24 13:44:19 2019
-
-@author: nrandle
-"""
 import re
 import pandas as pd
 from columns import x
