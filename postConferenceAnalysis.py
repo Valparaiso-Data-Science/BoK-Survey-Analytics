@@ -1,14 +1,24 @@
 # -*- coding: utf-8 -*-
 """
+Created on Fri May 31 12:59:07 2019
+
+@author: nrandle
+This script's goal is to clean up the survey data analysis, 
+to allow for more robust analysis
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Fri May 24 13:44:19 2019
 
 @author: nrandle
 """
 import re
 import pandas as pd
+from columns import x
 pd.set_option('display.max_rows', 200)
 pd.set_option('display.max_columns', 500)
-pd.set_option('display.width', 140)
+pd.set_option('display.width', 200)
 
 df = pd.read_csv("file:///H:/GitHub/BoK-Survey-Analytics/data/TRIPODS-X_May 29, 2019_16.08.csv",header=[0])
 df = df.set_index(df["ResponseId"])
@@ -45,10 +55,9 @@ for i in qDF.columns:
         qDF.iloc[0].loc[i] = prevCol
         
     prevCol = qDF.iloc[0].loc[i]
-
-qDF.columns = pd.MultiIndex.from_arrays([list(qDF.iloc[0]),qDF.columns ])
- 
-qDF = qDF.drop(df.index[0])
+    
+qDF.loc["Questions"] = qDF.columns
+qDF.columns = x
 
 subQuestions = ["Within DS", 
                 "first course", 
@@ -58,37 +67,8 @@ subQuestions = ["Within DS",
                 "Learned on own", 
                 "first course mastery"]
 
-subQHeaders = []
-for i in qDF.columns.levels[1]:
-    for j in range(6):
-        if re.compile(r"Q[0-9]{1,2}.1_%s" % str(j+1)).match(i):
-            subQHeaders.append(subQuestions[j])
-    if re.compile(r"Q[0-9]{1,2}.2").match(i):
-        subQHeaders.append("level of mastery from first course")
-        
-qDF.columns.set_levels(subQHeaders,level=1,inplace = True,verify_integrity=False)
-
-
-
-
-newDF = qDF.apply(lambda x:x.value_counts())
-
-edu = []
-job = []
-own = []
-for i in range(0,504,7):
-    edu.append(newDF.iloc[[1,3],0+i:5+i].loc["Agree/Yes"].fillna(0).iloc[2])
-    job.append(newDF.iloc[[1,3],0+i:5+i].loc["Agree/Yes"].fillna(0).iloc[3])
-    own.append(newDF.iloc[[1,3],0+i:5+i].loc["Agree/Yes"].fillna(0).iloc[4])
-  
-notindata = []
-for i in range(0,504,7):
-    notindata.append([newDF.iloc[[1,3],0+i:5+i].columns[0],
-                      newDF.iloc[[1,3],0+i:5+i].loc["Disagree/No"].fillna(0).iloc[0] , 
-                      newDF.iloc[[1,3],0+i:5+i].loc["Agree/Yes"].fillna(0).iloc[0]])
-
-
-
+#Cloud\n  Computing, cloud based services and cloud powered services design
+#Use\n  Cloud Computing technologies and cloud powered services design for data  infrastructure and data handling services
 
 
 
