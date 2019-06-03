@@ -8,12 +8,13 @@ to allow for more robust analysis
 """
 import re
 import pandas as pd
+import numpy as np
 from columns import x
-pd.set_option('display.max_rows', 200)
+pd.set_option('display.max_rows', 100)
 pd.set_option('display.max_columns', 500)
-pd.set_option('display.width', 200)
+pd.set_option('display.width', 180)
 
-df = pd.read_csv("file:///H:/GitHub/BoK-Survey-Analytics/data/TRIPODS-X_May 29, 2019_16.08.csv",header=[0])
+df = pd.read_csv("file:///H:/GitHub/BoK-Survey-Analytics/data/TRIPODS-X_June 3, 2019_15.27.csv",header=[0])
 df = df.set_index(df["ResponseId"])
 
 
@@ -38,27 +39,44 @@ removeSubQ(qDF,regex+"4",len(" - Learned in undergraduate formal education"))
 removeSubQ(qDF,regex+"5",len(" - Learned through my job"))
 removeSubQ(qDF,regex+"6",len(" - Learned on my own"))
 
-
 regex = r"Q[0-9]{1,2}.2"
 
 prevCol = qDF.columns[0]
 for i in qDF.columns:
-    if re.compile(regex).match(i):
-        
-        qDF.iloc[0].loc[i] = prevCol
-        
+    if re.compile(regex).match(i): 
+        qDF.iloc[0].loc[i] = prevCol 
     prevCol = qDF.iloc[0].loc[i]
     
-qDF.loc["Questions"] = qDF.columns
-qDF.columns = x
+qDF.loc["topics"] = x
 
-subQuestions = ["Within DS", 
-                "first course", 
-                "Relevant to job", 
-                "Learned in edu",
-                "Learned in job",
-                "Learned on own", 
-                "first course mastery"]
+subQuestions = {"1_1":"Within DS", 
+                "1_2":"first course", 
+                "1_3":"Relevant to job", 
+                "1_4":"Learned in edu",
+                "1_5":"Learned in job",
+                "1_6":"Learned on own", 
+                "2":"first course mastery"}
+
+def splitRemove(s):
+    s = s.split(".")
+    return s[-1]
+
+
+questionGroups = np.array_split(qDF.columns,72)
+for i in questionGroups:
+    topicname = qDF[i].iloc[-1][0]
+    print(topicname)
+    qDFnoTopics = qDF[i].drop(qDF[i].index[-1])
+    melted = qDFnoTopics.reset_index().melt(id_vars=["ResponseId"],value_name = topicname).set_index("ResponseId")
+    melted = melted.groupby(["ResponseId",melted.columns[0]]).sum()
+    meltedRenamed = melted.rename(splitRemove,level = 1)
+    
+    if i[0] == questionGroups[0][0]:    
+        output = meltedRenamed
+    else:
+        output = pd.merge(output, meltedRenamed,how='outer', left_index = True, right_index = True)
+output = output.drop("Response ID")
+output = output.rename(subQuestions,level = 1)
 
 #Cloud\n  Computing, cloud based services and cloud powered services design
 #Use\n  Cloud Computing technologies and cloud powered services design for data  infrastructure and data handling services
