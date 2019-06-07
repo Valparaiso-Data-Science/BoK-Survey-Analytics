@@ -14,15 +14,17 @@ pd.set_option('display.width', 180)
 import seaborn as sns
 
 df = pd.read_pickle("../../data/courses.pkl")
-print(df)
+print(df.count(axis="columns"))
 
 
 """
 summary table goal
 
-
-
-
+        % agree    % disagree     count
+topic 1
+topic 2
+...
+topic n
 
 
 
