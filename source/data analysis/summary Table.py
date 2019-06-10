@@ -35,25 +35,24 @@ for q in subQuestions:
     agreeCount = df.xs(q,level=1).replace(0,np.NaN).apply(pd.Series.value_counts).transpose().fillna(0)
     
     #create a count 
-    agreeCount["n"] = agreeCount["Agree/Yes"] + agreeCount["Disagree/No"] 
     agreeCount["Agree/Yes"] = agreeCount["Agree/Yes"]/(agreeCount["Agree/Yes"]+agreeCount["Disagree/No"])
-    agreeCount["Disagree/No"] = 1-agreeCount["Agree/Yes"]
-    agreeCount.columns = [q + " Agree/Yes", q + " Disagree/No", q + " n"]
+    agreeCount = agreeCount.drop("Disagree/No",axis=1)
+    agreeCount.columns = [q]
     output = pd.merge(output, agreeCount,how='outer', left_index = True, right_index = True)
     
     
-plt.figure(figsize=(30,40))
+plt.figure(figsize=(20,40))
 sns.set(font_scale=2)
 
-x = sns.heatmap(output,
-                annot=True, xticklabels=True, cbar=False,
-                cmap=sns.color_palette("YlOrRd"),
+x = sns.heatmap(output.sort_values(list(output.columns),ascending=False),
+                annot=True, xticklabels=True, cbar=True,
+                cmap=sns.color_palette("PuOr", 20),
                 vmin = 0, vmax = 1,center=.5
                 )
 print("plotting: " + q)
 plt.title("Topic %s" % q)
 x = x.get_figure()
-x.savefig("output2.png" % q,dpi=200,bbox_inches="tight")
+x.savefig("output2.png",dpi=200,bbox_inches="tight")
 
 
 """
