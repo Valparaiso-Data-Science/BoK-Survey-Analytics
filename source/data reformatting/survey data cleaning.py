@@ -15,7 +15,7 @@ pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 180)
 
 #importing the dataframe
-df = pd.read_csv("file:///H:/GitHub/BoK-Survey-Analytics/data/TRIPODS-X_June 3, 2019_15.27.csv",header=[0])
+df = pd.read_csv("file:///H:/GitHub/BoK-Survey-Analytics/data/TRIPODS-X_June+10,+2019_12.20.csv",header=[0],skiprows=[2])
 df = df.set_index(df["ResponseId"])
 
 #finding the start and end of the questions
