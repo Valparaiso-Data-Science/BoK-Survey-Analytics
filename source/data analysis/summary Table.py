@@ -39,20 +39,21 @@ for q in subQuestions:
     agreeCount = agreeCount.drop("Disagree/No",axis=1)
     agreeCount.columns = [q]
     output = pd.merge(output, agreeCount,how='outer', left_index = True, right_index = True)
-    
-    
-plt.figure(figsize=(20,40))
-sns.set(font_scale=2)
+n = df.xs("Within DS",level=1).replace(0,np.NaN).apply(pd.Series.value_counts).transpose().fillna(0)
+output["n"] = n["Agree/Yes"]+ n["Disagree/No"]
 
+plt.figure(figsize=(25,40))
+sns.set(font_scale=2)
+output = output.rename({"first course":"Relevant to First Course"},axis='columns')
 x = sns.heatmap(output.sort_values(list(output.columns),ascending=False),
-                annot=True, xticklabels=True, cbar=True,
+                annot=True, xticklabels=True, cbar=False,
                 cmap=sns.color_palette("PuOr", 20),
                 vmin = 0, vmax = 1,center=.5
                 )
-print("plotting: " + q)
-plt.title("Topic %s" % q)
+print("plotting")
+plt.title("Percent Agree of Topics in Data Science")
 x = x.get_figure()
-x.savefig("output2.png",dpi=200,bbox_inches="tight")
+x.savefig("survey summary data.png",dpi=200,bbox_inches="tight")
 
 
 """
