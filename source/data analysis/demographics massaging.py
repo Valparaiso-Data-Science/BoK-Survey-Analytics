@@ -16,11 +16,12 @@ df = pd.read_csv("file:///C:/Users/nrandle/Documents/GitHub/BoK-Survey-Analytics
                  header=[0],skiprows=[2])
 df = df.set_index(df["ResponseId"])
 
+#setting up only the demographics data from the data frame
 qStart = df.columns.get_loc("UserLanguage")
 qEnd = df.columns.get_loc("Q77.2")
 dfDemo = df.iloc[:,pd.np.r_[0:qStart, qEnd:len(df.columns)-2]]
 
-
+#renaming dataframe columns in order to make for easier encoding
 renameColumns = {'Q77.2':"Country", 'Q77.3':"State", 'Q77.4_1':"White", 'Q77.4_2':"Black or African American", 
                  'Q77.4_3':"American Indian or Alaska Native", 'Q77.4_4':"Asian",
                  'Q77.4_5':"Native Hawaiian or Pacific Islander", 
@@ -36,13 +37,13 @@ renameColumns = {'Q77.2':"Country", 'Q77.3':"State", 'Q77.4_1':"White", 'Q77.4_2
                  'Q78.6_7':"Other STEM Dept", 
                  'Q78.6_8':"Other Dept", 'Q78.6_8_TEXT':"Other Dept Text", 
                  'Q78.7':"School Classification", 'Q78.7_11_TEXT':"School Clasification Other"}
-dfDemo = dfDemo.drop(["Response ID","R_2ZDdGpzk73iWPXi"])
 dfDemo = dfDemo.rename(renameColumns,axis="columns")
 
+#removing useless column
+dfDemo = dfDemo.drop(["Response ID","R_2ZDdGpzk73iWPXi"])
 
 
-
- 
+pd.to_pickle(dfDemo,"../../data/dfDemo.pkl")
 
 
 

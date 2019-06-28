@@ -1,0 +1,85 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+      <meta charset="utf-8">
+      <title>Bokeh Plot</title>
+      
+      
+        
+          
+        <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.css" type="text/css" />
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.js"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
+      
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            
+              <div class="bk-root" id="b0c11406-90d2-46cf-81ad-420cc3aa71b6" data-root-id="2862"></div>
+            
+          
+        
+      
+      
+        <script type="application/json" id="2985">
+          {"9ef5b834-adc7-4f06-8c6a-738aeea69450":{"roots":{"references":[{"attributes":{"source":{"id":"2882","type":"ColumnDataSource"}},"id":"2886","type":"CDSView"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto"},"id":"2881","type":"Toolbar"},{"attributes":{"callback":null,"factors":["Massachusetts","California","North Carolina","Indiana","Minnesota","New York","Ohio","Illinois","Maine","Utah","Kansas","Arizona","Pennsylvania","Texas","Michigan","Georgia","Wisconsin","Maryland","Colorado","Florida","Iowa","I do not reside in the United States","New Jersey"]},"id":"2864","type":"FactorRange"},{"attributes":{"dimension":1,"plot":{"id":"2862","subtype":"Figure","type":"Plot"},"ticker":{"id":"2877","type":"BasicTicker"}},"id":"2880","type":"Grid"},{"attributes":{"callback":null,"start":0},"id":"2866","type":"DataRange1d"},{"attributes":{},"id":"2868","type":"CategoricalScale"},{"attributes":{"formatter":{"id":"2888","type":"BasicTickFormatter"},"plot":{"id":"2862","subtype":"Figure","type":"Plot"},"ticker":{"id":"2877","type":"BasicTicker"}},"id":"2876","type":"LinearAxis"},{"attributes":{"grid_line_color":{"value":null},"plot":{"id":"2862","subtype":"Figure","type":"Plot"},"ticker":{"id":"2873","type":"CategoricalTicker"}},"id":"2875","type":"Grid"},{"attributes":{"data_source":{"id":"2882","type":"ColumnDataSource"},"glyph":{"id":"2883","type":"VBar"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"2884","type":"VBar"},"selection_glyph":null,"view":{"id":"2886","type":"CDSView"}},"id":"2885","type":"GlyphRenderer"},{"attributes":{"plot":null,"text":"Fruit Counts"},"id":"2861","type":"Title"},{"attributes":{},"id":"2890","type":"CategoricalTickFormatter"},{"attributes":{},"id":"2892","type":"Selection"},{"attributes":{},"id":"2870","type":"LinearScale"},{"attributes":{"formatter":{"id":"2890","type":"CategoricalTickFormatter"},"major_label_orientation":-20,"plot":{"id":"2862","subtype":"Figure","type":"Plot"},"ticker":{"id":"2873","type":"CategoricalTicker"}},"id":"2872","type":"CategoricalAxis"},{"attributes":{"callback":null,"data":{"top":[7,7,5,5,5,4,3,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"x":["Massachusetts","California","North Carolina","Indiana","Minnesota","New York","Ohio","Illinois","Maine","Utah","Kansas","Arizona","Pennsylvania","Texas","Michigan","Georgia","Wisconsin","Maryland","Colorado","Florida","Iowa","I do not reside in the United States","New Jersey"]},"selected":{"id":"2892","type":"Selection"},"selection_policy":{"id":"2893","type":"UnionRenderers"}},"id":"2882","type":"ColumnDataSource"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"top":{"field":"top"},"width":{"value":0.9},"x":{"field":"x"}},"id":"2884","type":"VBar"},{"attributes":{"below":[{"id":"2872","type":"CategoricalAxis"}],"left":[{"id":"2876","type":"LinearAxis"}],"plot_height":350,"plot_width":1700,"renderers":[{"id":"2872","type":"CategoricalAxis"},{"id":"2875","type":"Grid"},{"id":"2876","type":"LinearAxis"},{"id":"2880","type":"Grid"},{"id":"2885","type":"GlyphRenderer"}],"title":{"id":"2861","type":"Title"},"toolbar":{"id":"2881","type":"Toolbar"},"toolbar_location":null,"x_range":{"id":"2864","type":"FactorRange"},"x_scale":{"id":"2868","type":"CategoricalScale"},"y_range":{"id":"2866","type":"DataRange1d"},"y_scale":{"id":"2870","type":"LinearScale"}},"id":"2862","subtype":"Figure","type":"Plot"},{"attributes":{"fill_color":{"value":"#1f77b4"},"line_color":{"value":"#1f77b4"},"top":{"field":"top"},"width":{"value":0.9},"x":{"field":"x"}},"id":"2883","type":"VBar"},{"attributes":{},"id":"2888","type":"BasicTickFormatter"},{"attributes":{},"id":"2873","type":"CategoricalTicker"},{"attributes":{},"id":"2893","type":"UnionRenderers"},{"attributes":{},"id":"2877","type":"BasicTicker"}],"root_ids":["2862"]},"title":"Bokeh Application","version":"1.0.4"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('2985').textContent;
+                  var render_items = [{"docid":"9ef5b834-adc7-4f06-8c6a-738aeea69450","roots":{"2862":"b0c11406-90d2-46cf-81ad-420cc3aa71b6"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        embed_document(root);
+                        clearInterval(timer);
+                      }
+                      attempts++;
+                      if (attempts > 100) {
+                        console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                        clearInterval(timer);
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
+</html>
